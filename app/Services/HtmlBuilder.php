@@ -16,12 +16,12 @@ class HtmlBuilder
         $this->data = $data;
     }
 
-    public function build()
+    public function build(): string
     {
         return $this->generate([$this->data]);
     }
 
-    private function generate($groups)
+    private function generate($groups): string
     {
 
         $template = "";
@@ -55,16 +55,18 @@ class HtmlBuilder
 
     }
 
-    private function getGroupTemplate($name, $index)
+    private function getGroupTemplate($name, $index): string
     {
         return $this->addTabs($index) . "<h" . $index . ">" . $name . "</h" . $index . ">";
     }
 
-    private function getProductTemplate($description, $index)
+    private function getProductTemplate($description, $index): string
     {
         return $this->addTabs($index) . "<li><b>" . $description . "</b></li>";
     }
-    private function addTabs($index){
+
+    private function addTabs($index): string
+    {
         return str_repeat("	", $index);
     }
 

@@ -44,7 +44,7 @@ class ParseProducts extends Command
 
         $html =  $htmlBuilder->build();
 
-        echo $html , PHP_EOL;
+        $this->comment($html);
 
     }
 }
