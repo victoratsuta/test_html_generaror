@@ -1,0 +1,5 @@
+id;name;parent;format;inherit
+1;Группа 1;;Купите %name% по цене %price%;1
+2;Группа 1.1;1;;0
+3;Группа 1.2;1;Покупайте больше %namestring% и %pricesome%;1
+4;Группа 1.2.1;3;;0
