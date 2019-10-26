@@ -18,39 +18,42 @@ class HtmlBuilder
 
     public function build(): string
     {
-        return $this->generate([$this->data]);
+        $template = "<ul>";
+        $template .= "<li>";
+        $template .= $this->generate($this->data);
+        $template .= "</li>";
+        $template .= "</ul>";
+        return $template;
     }
 
-    private function generate($groups): string
+    private function generate($group): string
     {
 
         $template = "";
-        $template .= "<ul>";
-        $template .= "<li>";
 
-        foreach ($groups as $group) {
+        $template .= $this->getGroupTemplate($group["name"], $group["depth"]);
+        $template .= $this->addTabs($group["depth"]) ."<ul>";
 
-            $template .= $this->getGroupTemplate($group["name"], $group["depth"]);
-            $template .= $this->addTabs($group["depth"]) ."<ul>";
-
-            if (is_array($group["products"])) {
-                foreach ($group["products"] as $product) {
-                    $template .= $this->getProductTemplate($product["description"], $group["depth"]);
-                }
+        if (is_array($group["products"])) {
+            foreach ($group["products"] as $product) {
+                $template .= $this->getProductTemplate($product["description"], $group["depth"]);
             }
+        }
 
-            if (isset($group["child"])) {
+        if (isset($group["child"])) {
+
+
+            foreach ($group["child"] as $groupChild){
                 $template .= $this->addTabs($group["depth"]) . "<li>";
-                $template .= $this->generate($group["child"]);
+                $template .= $this->generate($groupChild);
                 $template .= $this->addTabs($group["depth"]) . "</li>";
             }
 
-            $template .= $this->addTabs($group["depth"]) . "</ul>";
-
         }
 
-        $template .= "</li>";
-        $template .= "</ul>";
+        $template .= $this->addTabs($group["depth"]) . "</ul>";
+
+
         return $template;
 
     }
